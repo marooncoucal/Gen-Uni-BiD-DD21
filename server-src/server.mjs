@@ -35,13 +35,31 @@ let serialPorts = [
     'COM8',
     'COM9',
 ]
-let serialPortIndex = parseInt(process.argv[2])
 
+// let serialPortIndex = parseInt(process.argv[2])
+
+const arg = process.argv[2]
+
+let portPath
+
+if (!isNaN(arg)) {
+    // Windows - node server.mjs 1 to 9
+    portPath = serialPorts[parseInt(arg)]
+} else {
+    // Mac - node server.mjs /dev/cu.usbmodem101 or other path
+    portPath = arg
+}
+
+if (!portPath) {
+    console.error('No port specified. Usage: node server.mjs 1 to 9  OR  node server.mjs /dev/cu.usbmodem101 or other path')
+    process.exit(1)
+}
 
 parser = new ReadlineParser()
 
 port = new SerialPort({
-    path: serialPorts[serialPortIndex],
+    // path: serialPorts[serialPortIndex],
+    path: portPath,
     baudRate: 9600,
     autoOpen: false
 })
@@ -54,7 +72,7 @@ let startSerial = () => {
     if (port && !port.isOpen) {
         port.open(error => {
             //serialPortIndex++
-            if (serialPortIndex > serialPorts.length - 1) serialPortIndex = 0
+            // if (serialPortIndex > serialPorts.length - 1) serialPortIndex = 0
             setTimeout(startSerial, 3000)
         })
     }
@@ -62,8 +80,6 @@ let startSerial = () => {
 
 
 startSerial();
-
-
 
 
 
@@ -81,7 +97,7 @@ parser.on('data', json => {
         data.prevButton2Value = prevButton2State
         io.emit('data', data)
     }
-    //при ошибке
+    // при ошибке
     catch {
         console.log('data error')
     }

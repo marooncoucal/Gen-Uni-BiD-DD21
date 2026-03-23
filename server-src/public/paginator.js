@@ -20,4 +20,5 @@ document.addEventListener('keydown', e => {
 if (button1Listeners) button1Listeners.push(next)
 if (button2Listeners) button2Listeners.push(prev)
 
-setTimeout(next, 30000)
+// auto switch sketch.js every 30 secs
+// setTimeout(next, 30000)
