@@ -9,7 +9,7 @@ let t = 0;
 let tSliser;
 let wid = 1684;
 let heig = 1038;
-let tValue = 0.00001, stepValue = 4, stickangleValue = 1.40, coilValue = 600, rotatesValue = 0, angleValue = 0.001;
+let tValue = 0.00001, stepValue = 4, stickangleValue = 1.40, coilValue = 600, rotatesValue = 0, angleValue = 0.01;
 
 let val1 = tValue;
 let val2 = stepValue;
@@ -46,6 +46,7 @@ function draw() {
   stickangleValue = lerp(stickangleValue, map(val3, 0, 1024, 1.36, 1.42), 0.3);
   coilValue = lerp(coilValue,  map(val4, 0, 1024, 10, 2000), 0.3);
   rotatesValue = lerp(rotatesValue,map(val5, 0, 1024, -3, 3), 0.3);
+  // 0
   angleValue = lerp(angleValue,map(val6, 0, 1024, 0.0001, 0.2), 0.3);
   
   // tValue = lerp(tValue, map(values.s1, 0, 1024, 0.000001, 0.0001), 0.3);
@@ -59,11 +60,13 @@ function draw() {
     
        
     let anglePrev = i * angleValue + rotatesValue;
+    // let anglePrev = i * angleValue + rotatesValue;
     let rPrev = (1 - i/width);
     let rotPrev = i*stickangleValue;
     let sPrev = (1 - i/width);
  
     let angleNext = (i+stepValue) * angleValue + rotatesValue;
+    // let angleNext = (i+stepValue) * angleValue + rotatesValue;
     let rNext = (1 - (i+stepValue)/width);
     let rotNext = (i+stepValue)*stickangleValue;
     let sNext = (1 - (i+stepValue)/width);
